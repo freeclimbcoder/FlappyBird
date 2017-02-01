@@ -9,7 +9,9 @@
 
 	<title>FlappyBird</title>
 
-	<script src="sprite.js"></script>
+	<script src="js/sprite.js"></script>
+	<script src="js/soundManager.js"></script>
+
 
 	<style>
 	canvas {
@@ -27,11 +29,22 @@
 
 <script>
 
+
+
+
+
 var
-canvas,
-ctx,
-width,
-height,
+    canvas,
+    ctx,
+    width,
+    height,
+
+settings = [
+    looping = false,
+	volume = 1
+],
+
+
 
 fgpos = 0,
 frames = 0,
@@ -168,6 +181,7 @@ pipes = {
 
 				if (r > d1 || r > d2) {
 					currentState = states.Score;
+                    play('wav/hurt.wav', settings);
 				}
 			}
 			// двигаем трубу и, если она вышла за пределы канваса, удаляем её
@@ -199,13 +213,17 @@ function onpress(evt) {
 		case states.Splash:
 			currentState = states.Game;
 			bird.jump();
+			play('wav/flap.wav', settings);
+            play('wav/jump.wav', settings);
 			break;
 
 		case states.Game:
 			bird.jump();
+			play('wav/flap.wav', settings);
 			break;
 
 		case states.Score:
+            play('wav/score.wav', settings);
 
 			var mx = evt.offsetX, my = evt.offsetY;
 
@@ -231,6 +249,7 @@ function onpress(evt) {
 function main() {
 
 	canvas = document.createElement("canvas");
+
 
 	width = window.innerWidth;
 	height = window.innerHeight;

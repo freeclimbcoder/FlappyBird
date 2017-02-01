@@ -1,4 +1,4 @@
-var 
+var
 
 s_bird,
 s_bg,
@@ -11,6 +11,9 @@ s_splash, // Фигня "tap"
 s_buttons,
 s_numberS,
 s_numberB;
+
+
+
 
 
 function Sprite(img, x, y, width, height) {
