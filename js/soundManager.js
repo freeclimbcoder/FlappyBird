@@ -24,11 +24,7 @@ function playSound(buffer) {
 }
 */
 
-function play(path,settings) {
-    var audio = new Audio(); // Создаём новый элемент Audio
-    audio.src = path; // Указываем путь к звуку "клика"
-    audio.autoplay = true; // Автоматически запускаем
-}
+
 
 var soundManager = {
     clips:{},
@@ -77,7 +73,11 @@ function load(path, callback) {
     };
     request.send();
 }
-
+function play(path,settings) {
+    var audio = new Audio();
+    audio.src = path;
+    audio.autoplay = true;
+}
 function loadArray(array) {
     for (var i = 0; i<array.length; i++){
         if(array.length===Object.keys(soundManager.clips).length){
