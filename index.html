@@ -26,13 +26,8 @@
 	</style>
 </head>
 <body>
-
+<canvas></canvas>
 <script>
-
-
-
-
-
 var
     canvas,
     ctx,
@@ -43,7 +38,6 @@ settings = [
     looping = false,
 	volume = 1
 ],
-
 
 
 fgpos = 0,
@@ -68,7 +62,7 @@ bird = {
 
 	frame: 0,
 	velocity: 0,
-	animation: [1, 2, 1, 0], // sprite
+	animation: [1, 2, 1, 0],
 
 	rotation: 0,
 	radius: 12,
@@ -126,7 +120,7 @@ bird = {
 		ctx.save();
 		ctx.translate(this.x, this.y);
 		ctx.rotate(this.rotation);
-		
+
 		var n = this.animation[this.frame];
 		s_bird[n].draw(ctx, -s_bird[n].width/2, -s_bird[n].height/2);
 
@@ -180,8 +174,10 @@ pipes = {
 				var r = bird.radius*bird.radius;
 
 				if (r > d1 || r > d2) {
-					currentState = states.Score;
                     play('wav/hurt.wav', settings);
+					currentState = states.Score;
+
+
 				}
 			}
 			// двигаем трубу и, если она вышла за пределы канваса, удаляем её
@@ -214,12 +210,13 @@ function onpress(evt) {
 			currentState = states.Game;
 			bird.jump();
 			play('wav/flap.wav', settings);
-            play('wav/jump.wav', settings);
-			break;
+
+            break;
 
 		case states.Game:
 			bird.jump();
 			play('wav/flap.wav', settings);
+
 			break;
 
 		case states.Score:

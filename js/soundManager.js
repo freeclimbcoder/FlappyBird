@@ -24,6 +24,12 @@ function playSound(buffer) {
 }
 */
 
+function play(path,settings) {
+    var audio = new Audio(); // Создаём новый элемент Audio
+    audio.src = path; // Указываем путь к звуку "клика"
+    audio.autoplay = true; // Автоматически запускаем
+}
+
 var soundManager = {
     clips:{},
     context: null,
@@ -36,12 +42,18 @@ var soundManager = {
 };
 
 function init() {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    context = new AudioContext();
+    this.gainNode = this.context.createGain ?
+        this.context.createGain():this.context.createGainNode();
+    this.gainNode.connect(this.context.destination);
+};
+function init1() {
     this.context = new AudioContext();
     this.gainNode = this.context.createGain ?
         this.context.createGain():this.context.createGainNode();
     this.gainNode.connect(this.context.destination);
 };
-
 function load(path, callback) {
     if(this.clips[path]){
         callback(this.clips[path]);
@@ -77,7 +89,7 @@ function loadArray(array) {
 }
 
 
-function play(path, settings) {
+function play1(path, settings) {
     if (!soundManager.loaded){
         setTimeout(function () {soundManager.play(path,settings);},1000);
         return;
